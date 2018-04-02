@@ -1,7 +1,7 @@
 ---
 title: "Yoga mat bag"
 author: "Katie"
-date: "2/5/2018"
+date: "4/1/2018"
 output: html_document
 ---
 
@@ -11,14 +11,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Yoga mat bag
 
-I crocheted a yoga mat bag *years* ago. It is cylinder-shaped with a shoulder strap. While it works pretty well, I always wished the `radius` was a bit larger so I didn't have to roll the mat so tightly to get it to fit. This is my attempt at using *R* to design a bigger and better crocheted yoga mat bag. 
+I crocheted a yoga mat bag *years* ago. It is cylinder-shaped with a shoulder strap. While it works pretty well, I always had two problems with it. 
 
-The 'ggplot2' package will help visualize, so I will begin by adding that.
+1. I wish the `radius` was a bit larger so I didn't have to roll the mat so tightly to get it to fit.
+
+2. For the cylinder, I used a stitched that leaves a lot of open space, allowing the edges of the yoga mat to sometimes get caught.
+
+This is my attempt at using *R* to design a bigger and better crocheted yoga mat bag. 
+
+The 'ggplot2' package will help visualize, so let's begin by adding that.
 
 ```{r, message = FALSE}
 library(ggplot2)
 ```
 
-The bag is started by making a circle for the bottom of the cylinder. The old bag started with a circle of 12 stitches. To expand on this, I crocheted circles around it, adding 12 stitches for every round.
+The bag is started by making a circle for the bottom of the cylinder. The old bag started with a circle of 12 stitches. To expand on this, I crocheted circles around it, adding 12 stitches for every round until I got to the end of the fifth round. The fifth round had 60 stitches around.
 
 
