@@ -1,78 +1,29 @@
-##crochet theme
-crochet_theme <- theme(panel.grid = element_blank(), 
-                       panel.background = element_rect(fill = "#D8D8D8"),
-                       axis.text = element_blank(), 
-                       axis.ticks = element_blank(), 
-                       axis.title = element_blank(),
-                       legend.position = "none")
+---
+title: "Crocheting and plotting: circles vs. spirals"
+author: "Katie"
+date: "5/23/2018"
+output: html_document
+---
 
-##plotting circles
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-circle_points = function(center = c(0, 0), radius = 1, npoints = 360) {
-  angles = seq(0, 2 * pi, length.out = npoints)
-  return(data.frame(x = center[1] + radius * cos(angles),
-                    y = center[2] + radius * sin(angles)))
-}
+## Yoga mat bag
 
-stitches <- c(6, 12, 18, 24, 30, 36, 42, 48,
-              54, 60, 66, 72)
-make_circles <- function(stitchcounts) {
-  circlez <- data.frame()
-  for(i in 1:length(stitchcounts)) {
-    newcircle <- circle_points(radius = i, npoints = stitchcounts[i])
-    circlez <- rbind(circlez, newcircle)
-  }
-  return(circlez)
-}
+I crocheted a yoga mat bag *years* ago. It is cylinder-shaped with a shoulder strap. The base is solid while the body of the cylinder is a net with open spaces. While it works pretty well, I always wished the `radius` was a bit larger so I didn't have to roll the mat so tightly to get it to fit. Also I realized making a net-like tube was not the best idea, because the edges of the mat get caught in the open spaces when I put it in the old bag.
 
-circle0 <- make_circles(stitches)
+So I just finished my newest attempt at designing and creating a yoga mat bag. I used [Lily Sugar n' Cream yarn]("http://www.yarnspirations.com/yarn/boutiques/lily-sugarn-cream") with a size H (5.0mm) crochet hook for the body of the bag, and a slightly smaller size G (4.5mm) hook for the strap (I wanted the strap to be stitched more closely).
 
+If there's one thing I like as much as crocheting, it's R. And if there's one thing I like better than crocheting or R on their own, it's combining them! I love it when I can get my passions to collide! 
 
-ggplot() + geom_point(data = circle0, 
-                      aes(x = x, y = y), 
-                      color = "#DF01D7", size = 3) +
-  theme(panel.grid = element_blank(), 
-        panel.background = element_rect(fill = "#F7F8E0"),
-        axis.text = element_blank(), 
-        axis.ticks = element_blank(), 
-        axis.title = element_blank(),
-        legend.position = "none")
+I'm going to use the 'ggplot2' package to help visualize my crochet bag design.
 
+```{r, message = FALSE}
+library(ggplot2)
+```
 
-##plotting spirals
-spiral_points <- function(a = 1, b = 1, n){
-  theta <- seq(0,n*pi,0.03)
-  r <- a + b * theta
-  df <- data.frame(x = r*cos(theta), y = r*sin(theta))
-  return(df)
-}
-## evenly spaced points on a spiral
-spiral_points1 <- function(arc = 1, separation = 1, n) {
-  r <- arc
-  b <- separation / (2*pi)
-  phi <- r / b
-  xs <- c()
-  ys <- c()
-  while(n > 0) {
-    xs <- c(xs, r * cos(phi))
-    ys <- c(ys, r * sin(phi))
-    phi <- phi + (arc / r)
-    r <- b * phi
-    n <- n - 1
-  }
-  df <- data.frame(x = xs, y = ys)
-}
+I started with six single crochet (sc) stitches in a [magic ring]("") for the inner most part of the circle. Then I immediately start on round 2, working two single crochets into each of the 6 stitches from round one. So round 2 ends up with 12 stitches. I keep going, adding 6 stitches to each round, until I end up with 72 stitches at the end of round 12.
 
+Note that while I said I'm making a circle, I'm technically making a spiral that approximates a circle. I *could* make a pure circle if I wanted to. If I did, I would end each round of the circle by joining the yarn to the first stitch of the round with a slip stitch, then chaining one and 
 
-spiral1 <- spiral_points1(n = 468)
-
-ggplot(spiral1, aes(x,y)) + geom_point(color = "#6A0888", 
-                                       size = 10, shape = 18) +
-  crochet_theme
-
-
-spiral2 <- spiral_points(n = 4)
-
-ggplot(spiral2, aes(x,y)) + geom_point(color = "#6A0888", 
-                                       size = 10, shape = 18) +
-  crochet_theme
