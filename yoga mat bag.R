@@ -83,7 +83,7 @@ test2 <- xy2$xs ^2 + xy2$ys
 
 library(plotrix)
 
-plot(1:5,seq(1,10,length=5),type="n",xlab="",ylab="",main="Test draw.circle")
+plot(1:5,seq(1,10,length=5),type="n",xlab="",ylab="",main="Do you like circles?")
 draw.circle(2,4,c(1,0.66,0.33),border="purple",
             col=c("#ff00ff","#ff77ff","#ffccff"),lty=1,lwd=1)
 draw.circle(2.5,8,0.6,border="red",lty=3,lwd=3)
@@ -106,19 +106,28 @@ newxy <- data.frame(newspokes, x, y)
 ggplot(newxy, aes(x = x, y = y)) + geom_point()
 
 
-#####heart
-par(bg = 'white')
 
+
+
+
+
+
+
+#####heart
 dat <- data.frame(t=seq(0, 2*pi, by=0.1))
 xhrt <- function(t) 16*sin(t)^3
 yhrt <- function(t) 13*cos(t) - 5*cos(2*t) - 
   2*cos(3*t) - cos(4*t)
 dat$y = yhrt(dat$t)
 dat$x = xhrt(dat$t)
-with(dat, plot(x,y, type="l"))
 
-ggplot(dat, aes(x = x, y = y)) + geom_point(size = 12, color = "#1E90FF")+
-  theme(panel.grid = element_blank(), panel.background = element_rect(fill = "orange"),
-        axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank(),
+
+ggplot(dat, aes(x = x, y = y)) + 
+  geom_point(size = 10, color = "#00ffff")+
+  theme(panel.grid = element_blank(), 
+        panel.background = element_rect(fill = "#ff0000"),
+        axis.text = element_blank(), 
+        axis.ticks = element_blank(), axis.title = element_blank(),
         legend.position = "none")
+
 
